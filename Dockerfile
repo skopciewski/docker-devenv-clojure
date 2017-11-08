@@ -37,6 +37,11 @@ RUN mkdir -p /home/${user}/sbin \
   && chmod 755 /home/${user}/sbin/lein \
   && /home/${user}/sbin/lein
 
+RUN curl -fsSL https://github.com/boot-clj/boot-bin/releases/download/latest/boot.sh > /home/${user}/sbin/boot \
+  && chmod 755 /home/${user}/sbin/boot \
+  && /home/${user}/sbin/boot -h \
+  && /home/${user}/sbin/boot -h
+
 ENV DEVDOTFILES_VIM_CLOJURE_VER=1.0.0
 RUN mkdir -p /home/${user}/opt \
   && cd /home/${user}/opt \
@@ -44,11 +49,11 @@ RUN mkdir -p /home/${user}/opt \
   && cd dotfiles_vim_clojure-${DEVDOTFILES_VIM_CLOJURE_VER} \
   && make
 
-ENV ZSH_TMUX_AUTOSTART=true
-ENV ZSH_TMUX_AUTOSTART_ONCE=true
-ENV ZSH_TMUX_AUTOCONNECT=false
-ENV ZSH_TMUX_AUTOQUIT=false
-ENV ZSH_TMUX_FIXTERM=false
-ENV TERM=xterm-256color
+ENV ZSH_TMUX_AUTOSTART=true \
+  ZSH_TMUX_AUTOSTART_ONCE=true \
+  ZSH_TMUX_AUTOCONNECT=false \
+  ZSH_TMUX_AUTOQUIT=false \
+  ZSH_TMUX_FIXTERM=false \
+  TERM=xterm-256color
 
 CMD ["/bin/zsh"]
