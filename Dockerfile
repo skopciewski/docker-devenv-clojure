@@ -4,7 +4,8 @@ USER root
 
 RUN apk add --no-cache \
       ctags \
-      python
+      libnotify \
+      python 
 
 # Based on: https://hub.docker.com/_/openjdk/
 ##############################################################################################
@@ -39,8 +40,8 @@ RUN mkdir -p /home/${user}/sbin \
 
 RUN curl -fsSL https://github.com/boot-clj/boot-bin/releases/download/latest/boot.sh > /home/${user}/sbin/boot \
   && chmod 755 /home/${user}/sbin/boot \
-  && /home/${user}/sbin/boot -h \
-  && /home/${user}/sbin/boot -h
+  && /home/${user}/sbin/boot -h 
+  # && /home/${user}/sbin/boot -h
 
 ENV DEVDOTFILES_VIM_CLOJURE_VER=1.0.0
 RUN mkdir -p /home/${user}/opt \
