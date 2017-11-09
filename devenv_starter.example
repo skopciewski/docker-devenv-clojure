@@ -5,6 +5,7 @@ set -eo pipefail
 DOCKER_IMAGE=skopciewski/devenv-clojure
 DEVDIR=/mnt/devdir
 XSOCK=/tmp/.X11-unix
+DBUSCOCK=/run/user/1000/bus
 
 run_devenv() {
   local volume="$1"
@@ -15,8 +16,10 @@ run_devenv() {
   params+=" -e TZ=$(date +%Z)"
   params+=" -e DISPLAY"
   params+=" -e SSH_AUTH_SOCK"
+  params+=" -e DBUS_SESSION_BUS_ADDRESS"
   params+=" -v $(dirname $SSH_AUTH_SOCK):$(dirname $SSH_AUTH_SOCK)"
   params+=" -v ${XSOCK}:${XSOCK}"
+  params+=" -v ${DBUSCOCK}:${DBUSCOCK}"
   if [[ -n $volume ]]; then
     params+=" -v $volume:${DEVDIR}"
   fi

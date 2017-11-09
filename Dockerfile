@@ -4,7 +4,8 @@ USER root
 
 RUN apk add --no-cache \
       ctags \
-      python
+      libnotify \
+      python 
 
 # Based on: https://hub.docker.com/_/openjdk/
 ##############################################################################################
@@ -42,7 +43,7 @@ RUN curl -fsSL https://github.com/boot-clj/boot-bin/releases/download/latest/boo
   && /home/${user}/sbin/boot -h \
   && /home/${user}/sbin/boot -h
 
-ENV DEVDOTFILES_VIM_CLOJURE_VER=1.0.0
+ENV DEVDOTFILES_VIM_CLOJURE_VER=1.0.1
 RUN mkdir -p /home/${user}/opt \
   && cd /home/${user}/opt \
   && curl -fsSL https://github.com/skopciewski/dotfiles_vim_clojure/archive/v${DEVDOTFILES_VIM_CLOJURE_VER}.tar.gz | tar xz \
