@@ -49,7 +49,7 @@ RUN cd /home/${user}/sbin \
   && unzip joker-${JOKER_VER}-linux-amd64.zip \
   && rm joker-${JOKER_VER}-linux-amd64.zip
 
-ENV DEVDOTFILES_VIM_CLOJURE_VER=1.0.5
+ENV DEVDOTFILES_VIM_CLOJURE_VER=1.0.6
 RUN mkdir -p /home/${user}/opt \
   && cd /home/${user}/opt \
   && curl -fsSL https://github.com/skopciewski/dotfiles_vim_clojure/archive/v${DEVDOTFILES_VIM_CLOJURE_VER}.tar.gz | tar xz \
