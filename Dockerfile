@@ -43,7 +43,13 @@ RUN curl -fsSL https://github.com/boot-clj/boot-bin/releases/download/latest/boo
   && /home/${user}/sbin/boot -h \
   && /home/${user}/sbin/boot -h
 
-ENV DEVDOTFILES_VIM_CLOJURE_VER=1.0.4
+ENV JOKER_VER=0.8.6
+RUN cd /home/${user}/sbin \
+  && curl -fsSLo joker-${JOKER_VER}-linux-amd64.zip https://github.com/candid82/joker/releases/download/v${JOKER_VER}/joker-${JOKER_VER}-linux-amd64.zip \
+  && unzip joker-${JOKER_VER}-linux-amd64.zip \
+  && rm joker-${JOKER_VER}-linux-amd64.zip
+
+ENV DEVDOTFILES_VIM_CLOJURE_VER=1.0.5
 RUN mkdir -p /home/${user}/opt \
   && cd /home/${user}/opt \
   && curl -fsSL https://github.com/skopciewski/dotfiles_vim_clojure/archive/v${DEVDOTFILES_VIM_CLOJURE_VER}.tar.gz | tar xz \
