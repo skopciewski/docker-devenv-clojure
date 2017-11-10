@@ -54,7 +54,7 @@ RUN mkdir -p /home/${user}/opt \
   && cd /home/${user}/opt \
   && curl -fsSL https://github.com/skopciewski/dotfiles_vim_clojure/archive/v${DEVDOTFILES_VIM_CLOJURE_VER}.tar.gz | tar xz \
   && cd dotfiles_vim_clojure-${DEVDOTFILES_VIM_CLOJURE_VER} \
-  && make
+  && PATH=/home/${user}/sbin:$PATH make
 
 ENV ZSH_TMUX_AUTOSTART=true \
   ZSH_TMUX_AUTOSTART_ONCE=true \
