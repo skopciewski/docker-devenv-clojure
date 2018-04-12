@@ -41,9 +41,10 @@ RUN mkdir -p /home/${user}/sbin \
 RUN curl -fsSL https://github.com/boot-clj/boot-bin/releases/download/latest/boot.sh > /home/${user}/sbin/boot \
   && chmod 755 /home/${user}/sbin/boot \
   && /home/${user}/sbin/boot -h \
+  && sed -i -e 's/^BOOT_CLOJURE_VERSION=.*/BOOT_CLOJURE_VERSION=1.9.0/' /home/${user}/.boot/boot.properties \
   && /home/${user}/sbin/boot -h
 
-ENV JOKER_VER=0.8.6
+ENV JOKER_VER=0.9.1
 RUN cd /home/${user}/sbin \
   && curl -fsSLo joker-${JOKER_VER}-linux-amd64.zip https://github.com/candid82/joker/releases/download/v${JOKER_VER}/joker-${JOKER_VER}-linux-amd64.zip \
   && unzip joker-${JOKER_VER}-linux-amd64.zip \
