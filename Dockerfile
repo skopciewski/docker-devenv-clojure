@@ -2,10 +2,12 @@ FROM skopciewski/devenv-base
 
 USER root
 
+RUN echo "@testing http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 RUN apk add --no-cache \
       ctags \
       libnotify \
-      python 
+      python \
+      rlwrap@testing
 
 # Based on: https://hub.docker.com/_/openjdk/
 ##############################################################################################
@@ -34,7 +36,9 @@ ARG user=dev
 USER ${user}
 
 RUN mkdir -p /home/${user}/sbin \
-  && curl -fsS https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein > /home/${user}/sbin/lein \
+  && mkdir -p /home/${user}/opt
+
+RUN curl -fsS https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein > /home/${user}/sbin/lein \
   && chmod 755 /home/${user}/sbin/lein \
   && /home/${user}/sbin/lein
 
@@ -44,15 +48,20 @@ RUN curl -fsSL https://github.com/boot-clj/boot-bin/releases/download/latest/boo
   && sed -i -e 's/^BOOT_CLOJURE_VERSION=.*/BOOT_CLOJURE_VERSION=1.9.0/' /home/${user}/.boot/boot.properties \
   && /home/${user}/sbin/boot -h
 
-ENV JOKER_VER=0.9.1
+ENV CLOJURE_TOOLS_VER=1.9.0.381
+RUN curl -fsSL https://download.clojure.org/install/linux-install-${CLOJURE_TOOLS_VER}.sh > /home/${user}/sbin/linux-install.sh \
+  && chmod 755 /home/${user}/sbin/linux-install.sh \
+  && sudo /home/${user}/sbin/linux-install.sh \
+  && rm /home/${user}/sbin/linux-install.sh
+
+ENV JOKER_VER=0.9.4
 RUN cd /home/${user}/sbin \
   && curl -fsSLo joker-${JOKER_VER}-linux-amd64.zip https://github.com/candid82/joker/releases/download/v${JOKER_VER}/joker-${JOKER_VER}-linux-amd64.zip \
   && unzip joker-${JOKER_VER}-linux-amd64.zip \
   && rm joker-${JOKER_VER}-linux-amd64.zip
 
 ENV DEVDOTFILES_VIM_CLOJURE_VER=1.0.7
-RUN mkdir -p /home/${user}/opt \
-  && cd /home/${user}/opt \
+RUN cd /home/${user}/opt \
   && curl -fsSL https://github.com/skopciewski/dotfiles_vim_clojure/archive/v${DEVDOTFILES_VIM_CLOJURE_VER}.tar.gz | tar xz \
   && cd dotfiles_vim_clojure-${DEVDOTFILES_VIM_CLOJURE_VER} \
   && PATH=/home/${user}/sbin:$PATH make
