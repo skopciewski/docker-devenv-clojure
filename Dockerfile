@@ -45,10 +45,10 @@ RUN curl -fsS https://raw.githubusercontent.com/technomancy/leiningen/stable/bin
 RUN curl -fsSL https://github.com/boot-clj/boot-bin/releases/download/latest/boot.sh > /home/${user}/sbin/boot \
   && chmod 755 /home/${user}/sbin/boot \
   && /home/${user}/sbin/boot -h \
-  && sed -i -e 's/^BOOT_CLOJURE_VERSION=.*/BOOT_CLOJURE_VERSION=1.9.0/' /home/${user}/.boot/boot.properties \
+  && sed -i -e 's/^BOOT_CLOJURE_VERSION=.*/BOOT_CLOJURE_VERSION=1.10.0/' /home/${user}/.boot/boot.properties \
   && /home/${user}/sbin/boot -h
 
-ENV CLOJURE_TOOLS_VER=1.9.0.381
+ENV CLOJURE_TOOLS_VER=1.10.0.442
 RUN curl -fsSL https://download.clojure.org/install/linux-install-${CLOJURE_TOOLS_VER}.sh > /home/${user}/sbin/linux-install.sh \
   && chmod 755 /home/${user}/sbin/linux-install.sh \
   && sudo /home/${user}/sbin/linux-install.sh \
