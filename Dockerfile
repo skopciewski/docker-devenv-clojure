@@ -2,11 +2,16 @@ FROM skopciewski/devenv-base
 
 USER root
 
+RUN echo "@edge http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
 RUN echo "@testing http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 RUN apk add --no-cache \
       ctags \
       libnotify \
       python \
+      bash@edge \
+      readline@edge \
+      python2@edge \
+      ruby-libs@edge \
       rlwrap@testing
 
 # Based on: https://hub.docker.com/_/openjdk/
