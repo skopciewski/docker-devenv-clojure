@@ -11,7 +11,7 @@ RUN apk add --no-cache \
       bash@edge \
       readline@edge \
       python2@edge \
-      ruby-libs@edge \
+      ruby-libs \
       rlwrap@testing
 
 # Based on: https://hub.docker.com/_/openjdk/
