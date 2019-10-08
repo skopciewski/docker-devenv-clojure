@@ -11,7 +11,7 @@ RUN apk add --no-cache \
       bash@edge \
       readline@edge \
       python2@edge \
-      ruby-libs \
+      ruby-libs@edge \
       rlwrap@testing
 
 # Based on: https://hub.docker.com/_/openjdk/
@@ -28,8 +28,8 @@ RUN { \
 ENV JAVA_HOME /usr/lib/jvm/java-1.8-openjdk/jre
 ENV PATH $PATH:/usr/lib/jvm/java-1.8-openjdk/jre/bin:/usr/lib/jvm/java-1.8-openjdk/bin
 
-ENV JAVA_VERSION 8u212
-ENV JAVA_ALPINE_VERSION 8.212.04-r1
+ENV JAVA_VERSION 8u222
+ENV JAVA_ALPINE_VERSION 8.222.10-r0
 
 RUN set -x \
   && apk add --no-cache \
